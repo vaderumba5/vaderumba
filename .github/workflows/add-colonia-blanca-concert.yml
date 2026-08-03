@@ -1,0 +1,59 @@
+name: Add Colonia Blanca concert
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-colonia-blanca-concert.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-concert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add concert to index.html
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('index.html')
+          content = path.read_text(encoding='utf-8')
+
+          new_event = '''         <li>
+    <div class="evento">
+      <div class="dia">10 AGOSTO</div>
+      <div class="detalle">📍Fiestas Colonia Blanca, Vedat de Torrent — 0:00h</div>
+      <div style="margin-top: 10px;">
+        <div class="entrada-gratis">ENTRADA GRATUITA</div>
+      </div>
+    </div>
+  </li>
+'''
+
+          marker = '''         <li>
+    <div class="evento">
+      <div class="dia">14 AGOSTO</div>'''
+
+          if 'Fiestas Colonia Blanca, Vedat de Torrent' in content:
+              print('Concert already exists; no changes needed.')
+          elif marker not in content:
+              raise SystemExit('Expected 14 August marker not found; refusing to modify the file.')
+          else:
+              content = content.replace(marker, new_event + marker, 1)
+              path.write_text(content, encoding='utf-8')
+
+      - name: Commit website update
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Añadir concierto Fiestas Colonia Blanca"
+          git push
