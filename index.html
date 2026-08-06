@@ -1000,60 +1000,13 @@ header img.bg {
 
   <section id="conciertos">
     <h2>Conciertos 2026</h2>
-    <ul style="font-size: 1.5rem; list-style: none; padding: 0;">
-      <ul>
-          <li>
-    <div class="evento">
-      <div class="dia">30 ABRIL</div>
-      <div class="detalle">📍Feria Andaluza de València , Jardín del Turia — 20:30h</div>
-      <div style="margin-top: 10px;">
-        <div class="entrada-gratis">ENTRADA GRATUITA</div>
-      </div>
-    </div>
-  </li>
-                         <li>
-    <div class="evento">
-      <div class="dia">4 JULIO</div>
-      <div class="detalle">📍Taboo, Burriana — 18:00h</div>
-      <div style="margin-top: 10px;">
-        <div class="entrada-gratis">ENTRADA GRATUITA</div>
-      </div>
-    </div>
-  </li>
-         <li>
-    <div class="evento">
-      <div class="dia">18 JULIO</div>
-      <div class="detalle">📍Plaza Unión Musical, Torrent — 20:00h</div>
-      <div style="margin-top: 10px;">
-        <div class="entrada-gratis">ENTRADA GRATUITA</div>
-      </div>
-    </div>
-  </li>
-
-                 <li>
-    <div class="evento">
-      <div class="dia">24 JULIO</div>
-      <div class="detalle">📍Plaza Colón (Festes Na Violant), Torrent — 0:00h</div>
-      <div style="margin-top: 10px;">
-        <div class="entrada-gratis">ENTRADA GRATUITA</div>
-      </div>
-    </div>
-  </li>
-         <li>
-    <div class="evento">
-      <div class="dia">14 AGOSTO</div>
-      <div class="detalle">📍Urbanización Omet, Picassent — 0:00h</div>
-      <div style="margin-top: 10px;">
-        <div class="entrada-gratis">ENTRADA GRATUITA</div>
-      </div>
-    </div>
-  </li>
-
-
-        
-</ul>
-
-
+    <ul id="concerts-list" style="font-size: 1.5rem; list-style: none; padding: 0;"
+        aria-live="polite" aria-busy="true">
+      <li>
+        <div class="evento">
+          <div class="detalle">Cargando conciertos…</div>
+        </div>
+      </li>
     </ul>
   </section>
 
@@ -1190,6 +1143,7 @@ Si lo tuyo es el buen rollo y la música que engancha, ¡dale al play y vente de
     }
   });
 </script>
+<script type="module" src="script.js"></script>
 
 
 </body>
