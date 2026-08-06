@@ -84,7 +84,7 @@ function appendTicket(container, concert) {
   }
 
   const ticketUrl = text(concert.ticketUrl);
-  if (ticketUrl && (ticketType === "paid" || ticketType === "reservation")) {
+  if (ticketUrl && ticketType === "ticketed") {
     const link = document.createElement("a");
     link.className = "boton-entrada";
     link.href = ticketUrl;
@@ -92,7 +92,7 @@ function appendTicket(container, concert) {
     link.rel = "noopener noreferrer";
     link.textContent =
       text(concert.ticketLabel) ||
-      (ticketType === "reservation" ? "RESERVAR" : "COMPRAR ENTRADAS");
+      "COMPRAR ENTRADAS";
     container.append(link);
   }
 }
