@@ -113,7 +113,7 @@
     .next-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
     .date-list{margin-top:22px;border-top:1px solid var(--line)}
     .date-list h3{margin:22px 0 8px;font-family:Anton;font-size:clamp(28px,3vw,38px);font-weight:400;text-transform:uppercase}
-    .date-row{display:grid;grid-template-columns:100px minmax(0,1.4fr) 75px minmax(0,1fr) auto;gap:16px;align-items:center;min-height:68px;padding:12px 0;border-bottom:1px solid var(--line)}
+    .date-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1fr) minmax(0,2fr) auto;gap:16px;align-items:center;min-height:68px;padding:12px 0;border-bottom:1px solid var(--line)}
     .date-row time{grid-column:1;grid-row:1;font-family:Anton;font-size:24px}.date-row strong{grid-column:2;grid-row:1;font-size:16px}.date-row .date-detail{grid-column:3;grid-row:1}.date-row .date-location{grid-column:4;grid-row:1}.date-row b{grid-column:5;grid-row:1}.date-row .date-detail,.date-row .date-location{color:var(--muted);font-size:14px}.date-row strong,.date-row .date-location{min-width:0;overflow-wrap:anywhere}.date-row .date-detail{white-space:nowrap}.date-row b{text-align:right;font-size:14px;font-weight:600;color:var(--muted)}
     .past-marker{display:inline-grid;place-items:center;width:30px;height:30px;border:1px solid rgba(212,161,91,.6);border-radius:50%;background:rgba(212,161,91,.12);color:var(--accent);font:700 18px/1 Manrope,system-ui,sans-serif}
     .date-row a{text-decoration:underline;text-underline-offset:4px}.date-row a:hover{color:var(--accent)}
@@ -209,7 +209,7 @@
       .nav{display:none}.menu-btn{display:block}.statement-grid,.band-intro,.booking-grid{grid-template-columns:1fr;gap:38px}
       .section-head{align-items:flex-start;flex-direction:column;gap:18px}.tracks{grid-template-columns:1fr 1fr}.members{grid-template-columns:repeat(3,1fr)}
       .next-show{grid-template-columns:1.05fr 1fr}.show-photo,.next-show-inner{min-height:390px}.next-show-inner{padding:26px}
-      .gallery{height:clamp(300px,52vw,420px)}.photo{width:68%}.date-row{grid-template-columns:85px minmax(0,1.4fr) 65px minmax(0,1fr) auto;gap:12px}
+      .gallery{height:clamp(300px,52vw,420px)}.photo{width:68%}.date-row{grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1fr) minmax(0,2fr) auto;gap:12px}
       .social-layout{grid-template-columns:1fr;gap:36px}
     }
     @media (max-width:680px){
