@@ -51,7 +51,10 @@ function render(concert, past) {
   const venue = text(concert.publicLocation) || text(concert.venue);
   const city = text(concert.city);
   const title = document.createElement('strong');
-  title.textContent = [venue, city].filter(Boolean).join(' · ') || 'Va de Rumba en directo';
+  title.textContent = text(concert.title) || venue || 'Va de Rumba en directo';
+  const location = document.createElement('span');
+  location.className = 'date-location';
+  location.textContent = [venue !== title.textContent ? venue : '', city].filter(Boolean).join(' · ') || venue || 'Lugar por confirmar';
   const detail = document.createElement('span');
   detail.className = 'date-detail';
   detail.textContent = text(concert.time) ? `${text(concert.time)} h` : 'En directo';
@@ -71,7 +74,7 @@ function render(concert, past) {
   } else if (concert.ticketType === 'free') {
     action.textContent=text(concert.ticketLabel)||'Gratis';
   }
-  row.append(day,title,detail,action);
+  row.append(day,detail,title,location,action);
   return row;
 }
 
