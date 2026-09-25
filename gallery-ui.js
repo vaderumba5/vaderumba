@@ -1,6 +1,6 @@
 const gallery = document.querySelector('.gallery');
-const photos = [...gallery.querySelectorAll('.photo')];
-const images = photos.map(photo => photo.querySelector('img'));
+let photos = [...gallery.querySelectorAll('.photo')];
+let images = photos.map(photo => photo.querySelector('img'));
 const counter = document.getElementById('galleryCount');
 const dialog = document.getElementById('galleryDialog');
 const enlarged = dialog.querySelector('img');
@@ -39,7 +39,11 @@ function showEnlarged(index) {
   caption.textContent = `${enlargedIndex + 1} / ${photos.length} · ${image.alt}`;
 }
 
-photos.forEach((photo, index) => photo.querySelector('button').addEventListener('click', () => {
+gallery.addEventListener('click', event => {
+  const button = event.target.closest('.photo button');
+  if (!button || !gallery.contains(button)) return;
+  const index = photos.indexOf(button.closest('.photo'));
+  if (index < 0) return;
   if (performance.now() < suppressClickUntil) return;
   if (index !== active) {
     selectPhoto(index);
@@ -47,7 +51,7 @@ photos.forEach((photo, index) => photo.querySelector('button').addEventListener(
   }
   showEnlarged(index);
   dialog.showModal();
-}));
+});
 
 document.getElementById('galleryBack').addEventListener('click', () => selectPhoto(active - 1));
 document.getElementById('galleryForward').addEventListener('click', () => selectPhoto(active + 1));
@@ -74,7 +78,15 @@ gallery.addEventListener('pointerup', event => {
   selectPhoto(active + (dx < 0 ? 1 : -1));
 });
 gallery.addEventListener('pointercancel', () => { pointerStart = null; });
-window.addEventListener('gallerycontentchange', () => selectPhoto(active));
+window.addEventListener('gallerycontentchange', () => {
+  const selected = photos[active];
+  photos = [...gallery.querySelectorAll('.photo')];
+  images = photos.map(photo => photo.querySelector('img'));
+  active = selected && photos.includes(selected)
+    ? photos.indexOf(selected) : Math.min(active, photos.length - 1);
+  selectPhoto(active);
+  if (dialog.open) showEnlarged(Math.min(enlargedIndex, photos.length - 1));
+});
 
 dialog.querySelector('.gallery-close').addEventListener('click', () => dialog.close());
 dialog.querySelector('.gallery-prev').addEventListener('click', () => showEnlarged(enlargedIndex - 1));

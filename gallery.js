@@ -11,6 +11,8 @@ const app = initializeApp({
   appId: '1:353945851143:web:7c27b29224e687476c21a2',
 });
 const images = [...document.querySelectorAll('[data-gallery-slot]')];
+const gallery = document.querySelector('.gallery');
+const addedNodes = new Map();
 const defaults = new Map(images.map(img => [img.dataset.gallerySlot, {
   src: img.src, alt: img.alt,
 }]));
@@ -26,6 +28,42 @@ onSnapshot(collection(getFirestore(app), 'public_gallery'), snapshot => {
     if (img.src !== url) img.src = url;
     img.alt = typeof photo?.alt === 'string' && photo.alt.trim()
       ? photo.alt.trim() : fallback.alt;
+  }
+  const added = snapshot.docs
+    .filter(doc => doc.id.startsWith('photo-')
+      && typeof doc.data().imageUrl === 'string'
+      && doc.data().imageUrl.startsWith('https://'))
+    .sort((a, b) => {
+      const order = (a.data().createdAt?.toMillis?.() ?? 0)
+        - (b.data().createdAt?.toMillis?.() ?? 0);
+      return order || a.id.localeCompare(b.id);
+    });
+  const ids = new Set(added.map(doc => doc.id));
+  for (const [id, node] of addedNodes) {
+    if (!ids.has(id)) {
+      node.remove();
+      addedNodes.delete(id);
+    }
+  }
+  for (const doc of added) {
+    const data = doc.data();
+    let node = addedNodes.get(doc.id);
+    if (!node) {
+      node = document.createElement('div');
+      node.className = 'photo';
+      const button = document.createElement('button');
+      button.type = 'button';
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      button.appendChild(img);
+      node.appendChild(button);
+      addedNodes.set(doc.id, node);
+    }
+    const img = node.querySelector('img');
+    if (img.src !== data.imageUrl) img.src = data.imageUrl;
+    img.alt = typeof data.alt === 'string' && data.alt.trim()
+      ? data.alt.trim() : 'Va de Rumba';
+    gallery.appendChild(node);
   }
   window.dispatchEvent(new Event('gallerycontentchange'));
 }, error => {
