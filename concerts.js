@@ -74,7 +74,7 @@ function render(concert, past) {
   } else if (concert.ticketType === 'free') {
     action.textContent=text(concert.ticketLabel)||'Gratis';
   }
-  row.append(day,detail,title,location,action);
+  row.append(day,title,detail,location,action);
   return row;
 }
 
